@@ -56,7 +56,7 @@ class SymfonyIntegrationTestDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator A BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator instance.
+     * @return \BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator A BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator instance
      */
     protected function getBroadwaySerialization_ReconstituteService()
     {

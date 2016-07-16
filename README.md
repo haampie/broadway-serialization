@@ -99,3 +99,15 @@ If you're using Symfony, this can be managed for you automatically. Just registe
 
 When using this library, your personal performance will increase significantly. Of course, runtime performance will 
 be worse (not noticeably though, unless you're actually deserializing millions of objects).
+
+```
+$ vendor/bin/phpbench run test/Performance/ReconstitutionBench.php --report='generator:"table", cols: ["subject","revs","mean","diff"]' --group=trait
+
++-------------------------------------+--------+---------+---------+
+| subject                             | revs   | mean    | diff    |
++-------------------------------------+--------+---------+---------+
+| benchDeserializeObjectUsingTraitNew | 100000 | 6.897μs | 0.00%   |
+| benchDeserializeObjectUsingTrait    | 100000 | 8.157μs | +15.45% |
++-------------------------------------+--------+---------+---------+
+
+```

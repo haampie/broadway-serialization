@@ -10,7 +10,7 @@ before_script:
   - composer install --prefer-dist
 
 script:
-  - vendor/bin/phpunita
+  - vendor/bin/phpunit
   - vendor/bin/phpbench run --report=default --group=trait
 
 

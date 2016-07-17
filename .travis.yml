@@ -1,22 +1,18 @@
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
-
-matrix:
-  allow_failures:
-    - php: 7.0
 
 before_script:
   - composer selfupdate
   - composer install --prefer-dist
 
 script:
-  - vendor/bin/phpunit
-  - php -n vendor/bin/athletic -p test/Performance
+  - vendor/bin/phpunita
+  - vendor/bin/phpbench run --report=default --group=trait
+
 
 after_script:
   - vendor/bin/coveralls

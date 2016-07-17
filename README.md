@@ -99,3 +99,37 @@ If you're using Symfony, this can be managed for you automatically. Just registe
 
 When using this library, your personal performance will increase significantly. Of course, runtime performance will 
 be worse (not noticeably though, unless you're actually deserializing millions of objects).
+
+### Deserialization
+
+```
+$ vendor/bin/phpbench run test/Performance/ReconstitutionBench.php --report='generator:"table", cols: ["subject","revs","mean","diff"]' --group=trait
+
++----------------------------------------+--------+---------+---------+
+| subject                                | revs   | mean    | diff    |
++----------------------------------------+--------+---------+---------+
+| benchDeserializeObjectUsingReflection  | 100000 | 6.884μs | +12.46% |
+| benchDeserializeObjectUsingClosure     | 100000 | 6.292μs | +4.24%  |
+| benchDeserializeObjectUsingClosurePHP7 | 100000 | 6.026μs | 0.00%   |
++----------------------------------------+--------+---------+---------+
+| benchDeserializeTraditionalObject      | 100000 | 1.604μs | -73.36% |
++----------------------------------------+--------+---------+---------+
+
+```
+
+### Serialization
+
+```
+$ vendor/bin/phpbench run test/Performance/SerializationBench.php --report='generator:"table", cols: ["subject","revs","mean","diff"]'
+
++----------------------------------------------+--------+---------+---------+
+| subject                                      | revs   | mean    | diff    |
++----------------------------------------------+--------+---------+---------+
+| benchSeriali...OnlyScalarProperties          | 100000 | 0.832μs | 0.00%   |
+| benchSeriali...OnlyScalarPropertiesWithTrait | 100000 | 3.744μs | +77.79% |
++----------------------------------------------+--------+---------+---------+
+
+
+```
+
+

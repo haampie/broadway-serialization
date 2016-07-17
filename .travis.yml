@@ -10,8 +10,9 @@ before_script:
   - composer install --prefer-dist
 
 script:
-  - vendor/bin/phpunit
-  - vendor/bin/phpbench
+  - vendor/bin/phpunita
+  - vendor/bin/phpbench run --report=default --group=trait
+
 
 after_script:
   - vendor/bin/coveralls

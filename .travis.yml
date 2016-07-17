@@ -21,3 +21,7 @@ notifications:
   email: matthiasnoback@gmail.com
 
 sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache

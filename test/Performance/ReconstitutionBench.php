@@ -1,5 +1,8 @@
-<?php namespace BroadwaySerialization\Test\Performance;
+<?php
 
+namespace BroadwaySerialization\Test\Performance;
+
+use BroadwaySerialization\Hydration\HydrateUsingClosure;
 use BroadwaySerialization\Hydration\HydrateUsingReflection;
 use BroadwaySerialization\Hydration\HydrateUsingReflectionFaster;
 use BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator;
@@ -26,20 +29,22 @@ class ReconstitutionBench
         ]
     ];
 
-    public function setup()
+
+    public function setupReconstituteUsingInstantiatorAndReflection()
     {
         $reconstitute = new ReconstituteUsingInstantiatorAndHydrator(new Instantiator(), new HydrateUsingReflection());
+        Reconstitution::reconstituteUsing($reconstitute);
+    }
 
-        // test run, for calibration
-        $reconstitute->objectFrom(SerializableClassUsingTrait::class, []);
-        $reconstitute->objectFrom(SomeOtherSerializableClassUsingTrait::class, []);
-
+    public function setupReconstituteUsingInstantiatorAndClosure()
+    {
+        $reconstitute = new ReconstituteUsingInstantiatorAndHydrator(new Instantiator(), new HydrateUsingClosure());
         Reconstitution::reconstituteUsing($reconstitute);
     }
 
     /**
      * @Warmup(10)
-     * @Revs(100000)
+     * @Revs(1000)
      * @Groups({"traditional"})
      */
     public function benchDeserializeTraditionalObject()
@@ -49,11 +54,22 @@ class ReconstitutionBench
 
     /**
      * @Warmup(10)
-     * @Revs(100000)
+     * @Revs(1000)
      * @Groups({"trait"})
-     * @BeforeMethods({"setup"})
+     * @BeforeMethods({"setupReconstituteUsingInstantiatorAndReflection"})
      */
-    public function benchDeserializeObjectUsingTrait()
+    public function benchDeserializeObjectUsingReflection()
+    {
+        SerializableClassUsingTrait::deserialize($this->deserializationData);
+    }
+
+    /**
+     * @Warmup(10)
+     * @Revs(1000)
+     * @Groups({"trait"})
+     * @BeforeMethods({"setupReconstituteUsingInstantiatorAndClosure"})
+     */
+    public function benchDeserializeObjectUsingClosure()
     {
         SerializableClassUsingTrait::deserialize($this->deserializationData);
     }

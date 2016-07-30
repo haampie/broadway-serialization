@@ -3,6 +3,7 @@
 namespace BroadwaySerialization\Test\Performance;
 
 use BroadwaySerialization\Hydration\HydrateUsingClosure;
+use BroadwaySerialization\Hydration\HydrateUsingClosurePHP7;
 use BroadwaySerialization\Hydration\HydrateUsingReflection;
 use BroadwaySerialization\Hydration\HydrateUsingReflectionFaster;
 use BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator;
@@ -42,6 +43,12 @@ class ReconstitutionBench
         Reconstitution::reconstituteUsing($reconstitute);
     }
 
+    public function setupReconstituteUsingInstantiatorAndClosurePHP7()
+    {
+        $reconstitute = new ReconstituteUsingInstantiatorAndHydrator(new Instantiator(), new HydrateUsingClosurePHP7());
+        Reconstitution::reconstituteUsing($reconstitute);
+    }
+
     /**
      * @Warmup(10)
      * @Revs(1000)
@@ -70,6 +77,18 @@ class ReconstitutionBench
      * @BeforeMethods({"setupReconstituteUsingInstantiatorAndClosure"})
      */
     public function benchDeserializeObjectUsingClosure()
+    {
+        SerializableClassUsingTrait::deserialize($this->deserializationData);
+    }
+
+    /**
+     * @Warmup(10)
+     * @Revs(1000)
+     * @Groups({"trait"})
+     * @Skip()
+     * @BeforeMethods({"setupReconstituteUsingInstantiatorAndClosurePHP7"})
+     */
+    public function benchDeserializeObjectUsingClosurePHP7()
     {
         SerializableClassUsingTrait::deserialize($this->deserializationData);
     }

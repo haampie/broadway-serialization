@@ -25,17 +25,6 @@ class BenchSerialization
         $this->serializableClassUsingTrait = new SerializableClassUsingTrait();
     }
 
-    public function setupReconstitute()
-    {
-        $reconstitute = new ReconstituteUsingInstantiatorAndHydrator(new Instantiator(), new HydrateUsingReflection());
-
-        // test run, for calibration
-        $reconstitute->objectFrom(SerializableClassUsingTrait::class, []);
-        $reconstitute->objectFrom(SomeOtherSerializableClassUsingTrait::class, []);
-
-        Reconstitution::reconstituteUsing($reconstitute);
-    }
-
     /**
      * @Warmup(10)
      * @Revs(100000)
@@ -51,7 +40,7 @@ class BenchSerialization
      * @Warmup(10)
      * @Revs(100000)
      * @Groups({"trait"})
-     * @BeforeMethods({"setup","setupReconstitute"})
+     * @BeforeMethods({"setup"})
      */
     public function benchSerializeObjectWithOnlyScalarPropertiesWithTrait()
     {

@@ -5,7 +5,6 @@ namespace BroadwaySerialization\Test\Performance;
 use BroadwaySerialization\Hydration\HydrateUsingClosure;
 use BroadwaySerialization\Hydration\HydrateUsingClosurePHP7;
 use BroadwaySerialization\Hydration\HydrateUsingReflection;
-use BroadwaySerialization\Hydration\HydrateUsingReflectionFaster;
 use BroadwaySerialization\Reconstitution\ReconstituteUsingInstantiatorAndHydrator;
 use BroadwaySerialization\Reconstitution\Reconstitution;
 use Doctrine\Instantiator\Instantiator;

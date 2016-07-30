@@ -17,7 +17,7 @@ after_script:
   - vendor/bin/coveralls
 
 notifications:
-  email: matthiasnoback@gmail.com
+  email: harmenstoppels@gmail.com
 
 sudo: false
 

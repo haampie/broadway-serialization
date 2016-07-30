@@ -3,6 +3,7 @@
 namespace BroadwaySerialization\Test\Reconstitution;
 
 use BroadwaySerialization\Reconstitution\Reconstitution;
+use BroadwaySerialization\Reconstitution\Reconstitute;
 
 class ReconstitutionTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,6 +30,6 @@ class ReconstitutionTest extends \PHPUnit_Framework_TestCase
 
     private function dummyReconstitute()
     {
-        return $this->getMock('BroadwaySerialization\Reconstitution\Reconstitute');
+        return $this->createMock(Reconstitute::class);
     }
 }

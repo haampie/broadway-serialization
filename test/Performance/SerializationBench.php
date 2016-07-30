@@ -27,7 +27,7 @@ class BenchSerialization
 
     /**
      * @Warmup(10)
-     * @Revs(100000)
+     * @Revs(1000)
      * @Groups({"traditional"})
      * @BeforeMethods({"setup"})
      */
@@ -38,7 +38,7 @@ class BenchSerialization
 
     /**
      * @Warmup(10)
-     * @Revs(100000)
+     * @Revs(1000)
      * @Groups({"trait"})
      * @BeforeMethods({"setup"})
      */
